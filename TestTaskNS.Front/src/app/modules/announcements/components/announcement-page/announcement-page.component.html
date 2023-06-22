@@ -1,0 +1,21 @@
+<div class="buttons">
+    <button class="return-button" routerLink="">Back</button>
+    <button class="modify-button" [routerLink]="['/modify', fullAnnouncement.id]">Modify</button>
+    <button class="delete-button" (click)="onDelete(fullAnnouncement.id)">Delete</button>
+</div>
+
+<div class="announcement-container">
+    <div class="announcement">
+        <h2 class="announcement__title">{{fullAnnouncement.title}}</h2>
+        <p class="announcement__description">{{fullAnnouncement.description}}</p>
+        <p class="announcement__author">Author: {{fullAnnouncement.authorName}}</p>
+        <p class="announcement__email">Email: {{fullAnnouncement.authorEmail}}</p>
+    </div>
+    <div class="similar">
+        <h2>Most similar</h2>
+        <div class="announcementss">
+            <app-annoucement-item *ngFor="let announcement of fullAnnouncement.similarAnnouncements" [announcement]="announcement"></app-annoucement-item>
+        </div>
+    </div>
+</div>
+

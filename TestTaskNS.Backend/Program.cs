@@ -20,6 +20,14 @@ builder.Services.AddDbContextsCustom(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(opts =>
+{
+    opts.AddPolicy("AllowAll", builder => builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,6 +42,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.UseCustomExceptionHandler();
+
+app.UseCors("AllowAll");
 
 app.MapControllers();
 

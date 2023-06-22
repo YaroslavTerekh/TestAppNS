@@ -1,0 +1,19 @@
+.announcement {
+    cursor: pointer;
+    width: 32vw;
+    height: 15vh !important;
+    margin-bottom: 1vh;
+    background-color: #d1d1d1;
+    
+    .head {
+        padding: 2vh;
+        background-color: #33a064;
+        color: #fff;
+        font-weight: 600;
+        font-weight: 17px;
+    }
+
+    .descr {
+        padding: 2vh;
+    }
+}

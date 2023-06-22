@@ -1,0 +1,29 @@
+<div class="announcements">
+    <form class="create-announcement-form" [formGroup]="addForm" (submit)="onCreateNewAnnouncement()">
+        <h2 class="form-title">Create Announcement</h2>
+        <div class="form-group">
+          <label for="create-title">Title:</label>
+          <input type="text" id="create-title" name="create-title" formControlName="title">
+        </div>
+        <div class="form-group">
+          <label for="create-description">Description:</label>
+          <textarea id="create-description" name="create-description" formControlName="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="create-author-name">Author Name:</label>
+          <input type="text" id="create-author-name" name="create-author-name" formControlName="authorName">
+        </div>
+        <div class="form-group">
+          <label for="create-author-email">Author Email:</label>
+          <input type="email" id="create-author-email" name="create-author-email" formControlName="authorEmail">
+        </div>
+        <button type="submit" class="submit-button">Create Announcement</button>
+        <ul class="errors" *ngIf="errorList.length > 0">
+            <p>Error list:</p>
+            <li *ngFor="let error of errorList">{{error}}</li>
+        </ul>
+    </form>
+    <div class="announcements-all">
+        <app-annoucement-item *ngFor="let announcement of announcements" [announcement]="announcement"></app-annoucement-item>
+    </div>
+</div>

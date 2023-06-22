@@ -21,6 +21,6 @@ public class GetAllAnnouncementsHandler : IRequestHandler<GetAllAnnouncementsQue
 
     public async Task<List<Announcement>> Handle(GetAllAnnouncementsQuery request, CancellationToken cancellationToken)
     {
-        return await _context.Announcements.ToListAsync(cancellationToken);
+        return await _context.Announcements.OrderByDescending(t => t.CreatedDate).ToListAsync(cancellationToken);
     }
 }

@@ -1,0 +1,21 @@
+<form class="edit-announcement-form" [formGroup]="modifyForm" (submit)="onModify()">
+    <h2 class="form-title">Edit Announcement</h2>
+    <div class="form-group">
+      <label for="edit-title">Title:</label>
+      <input type="text" id="edit-title" name="edit-title" formControlName="title">
+    </div>
+    <div class="form-group">
+      <label for="edit-description">Description:</label>
+      <textarea id="edit-description" name="edit-description" formControlName="description"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="edit-author-email">Author Email:</label>  
+      <input type="email" id="edit-author-email" name="edit-author-email" formControlName="email">
+    </div>
+    <button type="submit" class="submit-button">Save Changes</button>
+    <button class="return-button" routerLink="">Main page</button>
+  </form>
+  <ul class="errors" *ngIf="errorList.length > 0">
+    <p>Error list:</p>
+    <li *ngFor="let error of errorList">{{error}}</li>
+</ul>
