@@ -1,5 +1,6 @@
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TestTaskNS.Backend.Middleware;
 using TestTaskNS.BL.Behaviors;
@@ -11,15 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(AppDomain.CurrentDomain.GetAssemblies().Where(t => t.FullName.Contains("BL")).First()));
 
-builder.Services.AddTransient(typeof(IPipelineBehavior<,>),
-                typeof(ValidationBehavior<,>));
-
 builder.Services.AddControllers();
-builder.Services.AddDbContextsCustom(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContextsCustom(builder.Configuration);
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>),
+                typeof(ValidationBehavior<,>));
 builder.Services.AddCors(opts =>
 {
     opts.AddPolicy("AllowAll", builder => builder
@@ -29,7 +30,11 @@ builder.Services.AddCors(opts =>
 });
 
 var app = builder.Build();
-
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+    dataContext.Database.Migrate();
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
